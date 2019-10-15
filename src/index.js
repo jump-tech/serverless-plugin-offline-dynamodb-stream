@@ -7,9 +7,6 @@ const FunctionExecutable = require('./FunctionExecutable');
 class ServerlessPluginOfflineDynamodbStream {
   constructor(serverless, options) {
     this.serverless = serverless;
-    this.config =
-      (serverless.service.custom && serverless.service.custom.dynamodbStream) ||
-      {};
     this.options = options;
     this.provider = 'aws';
     this.commands = {};
@@ -32,6 +29,9 @@ class ServerlessPluginOfflineDynamodbStream {
   }
 
   startReadableStreams() {
+    this.config =
+      (this.serverless.service.custom && this.serverless.service.custom.dynamodbStream) ||
+      {};
     const {
       config: {
         host: hostname,
